@@ -28,9 +28,16 @@ public class Task {
         System.out.print("\n");
     }
 
+    public static void print_of_arr_int(int[] sortArr) {
+        for (int i = 1; i < sortArr.length; i++) {
+            System.out.print(sortArr[i] + " ");
+        }
+        System.out.print("\n");
+    }
+
+
     // функция удаления четныъ значений и заполнение массива null
     public static Object[] delete_of_nums(Object[] sortArr) {
-
         for (int i = 0; i < sortArr.length; i++) {
             int intValue = (Integer) sortArr[i]; // приаброзую Object в Integer
             if (intValue % 2 == 0) {
@@ -65,10 +72,24 @@ public class Task {
         return maxNum;
     }
 
+    // функция нахождения среднего значения
+    public static double find_Mid(Object[] sortArr) {
+        int count = 0;
+        double midCount = 0;
+        for (int i = 0; i < sortArr.length; i++) {
+            int intValue = (Integer) sortArr[i];
+            count += intValue;
+        }
+        midCount = count / (sortArr.length);
+
+        return midCount;
+    }
+
+
 
     // функция копирования массива в другой массив
     public static int[] copy_of_arr(Object[] sortArr, int nums) {
-        int[] destination = new int[nums];
+        int[] destination = new int[nums + 1];
         int count = 0;
         for (int i = 0; i < sortArr.length; i++) {
             if (sortArr[i] != null) {
@@ -76,10 +97,10 @@ public class Task {
                 count += 1;
                 destination[count] = intValue;
             }
-            System.out.print(destination[count] + " ");
         }
         return destination;
     }
+
     // функция подсчета null в массиве
     public static int find_null(Object[] sortArr) {
         int count = 0;
@@ -88,7 +109,7 @@ public class Task {
                 count += 1;
             }
         }
-        System.out.println(count);
+        System.out.println("Количество элементов НЕ null: " + count);
         return count;
     }
 
@@ -99,22 +120,26 @@ public class Task {
         int num = scanner.nextInt();
         Object[] sortArr = new Object[num];
 
-        int[] newSortArr = new int[num];
-        sortArr = rand_of_arr(num);
-        print_of_arr(sortArr);
+        sortArr = rand_of_arr(num); // заполняю массив случайными числами (Обьектами)
+        print_of_arr(sortArr); // вывожу массив обьектов в консоль
 
-        int minNums = find_Min(sortArr);
-        System.out.println("Минимальное число в массиве: " + minNums);
-        int maxNum = find_Max(sortArr);
-        System.out.println("Максимальное число в массиве: " + maxNum);
+        int minNums = find_Min(sortArr); // ищу минимальное число
+        int maxNum = find_Max(sortArr); // ищу максимальное число
+        double midNum = find_Mid(sortArr); // ищу максимальное число
+
 
         delete_of_nums(sortArr);
-        int numsNull = find_null(sortArr);
+        int numsNull = find_null(sortArr); // считаю сколько НЕ null в массве
+        int[] newSortArr = new int[numsNull];
+
+        System.out.println("1. Массив без четных чисел: ");
         print_of_arr(sortArr);
-        newSortArr = copy_of_arr(sortArr, numsNull);
-//        print_of_arr(newSortArr);
+        newSortArr = copy_of_arr(sortArr, numsNull); //копирую все значения НЕ null во второй массив (int)
+        System.out.println("   Массив без четных чисел и null: ");
+        print_of_arr_int(newSortArr);
 
+        System.out.println("2. Минимальное число в массиве: " + minNums);
+        System.out.println("3. Максимальное число в массиве: " + maxNum);
+        System.out.println("4. Cреднее значение в массиве: " + midNum);
     }
-
-
 }
